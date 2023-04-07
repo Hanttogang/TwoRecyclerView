@@ -6,17 +6,33 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import teameverywhere.personal.test0403tworecyclerview.databinding.ActivityMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
 import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter01
+import teameverywhere.personal.test0403tworecyclerview.view.fragment.FragmentA
 import teameverywhere.personal.test0403tworecyclerview.view.fragment.MainFragment
 
 //Todo: Package는 View, Model, Controller
-@Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
     private lateinit var binding: ActivityMainBinding
 
+    interface onBackPressedListener {
+        fun onBackPressed()
+    }
+
+    override fun onBackPressed(){
+        //해당 엑티비티에서 띄운 프래그먼트에서 뒤로가기를 누르게 되면 프래그먼트에서 구현한 onBackPressed 함수가 실행되게 된다.
+        val fragmentList = supportFragmentManager.fragments
+        for (fragment in fragmentList) {
+            if (fragment is onBackPressedListener) {
+                (fragment as onBackPressedListener).onBackPressed()
+                return
+            }
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,9 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         init()
         //bindViews()
-
-
-
     }
 
     private fun init(){
@@ -38,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             add(R.id.container, MainFragment())
             commit()
             dataList()
+
         }
     }
 
@@ -54,13 +68,6 @@ class MainActivity : AppCompatActivity() {
         dataList01.add(DataClass01("첫 번째 데이터a3", "두 번째 데이터a3", "세 번째 데이터a3"))
         dataList01.add(DataClass01("첫 번째 데이터a4", "두 번째 데이터a4", "세 번째 데이터a4"))
 
-//        var dataList01: ArrayList<DataClass01> = arrayListOf(
-//            DataClass01("첫 번째 데이터a1", "두 번째 데이터a1", "세 번째 데이터a1"),
-//            DataClass01("첫 번째 데이터a2", "두 번째 데이터a2", "세 번째 데이터a2"),
-//            DataClass01("첫 번째 데이터a3", "두 번째 데이터a3", "세 번째 데이터a3"),
-//            DataClass01("첫 번째 데이터a4", "두 번째 데이터a4", "세 번째 데이터a4"),
-//            DataClass01("첫 번째 데이터a5", "두 번째 데이터a5", "세 번째 데이터a5"),
-//        )
 
         var dataList02: ArrayList<DataClass02> = arrayListOf(
             DataClass02("첫 번째 데이터1", "두 번째 데이터1", "세 번째 데이터1"),
@@ -80,18 +87,30 @@ class MainActivity : AppCompatActivity() {
             DataClass02("첫 번째 데이터15", "두 번째 데이터15", "세 번째 데이터15")
         )
 
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(
+        val mainFragment = supportFragmentManager.beginTransaction()
+        mainFragment.replace(
             R.id.container,
             MainFragment()
         )
-        transaction.commit()
+        mainFragment.commit()
 
-
-
-
-        //데이터 전달일까?
+        //데이터 전달
         intent.putExtra("DataList01", dataList01)
         intent.putExtra("DataList02", dataList02)
+
+    }
+
+    //클릭 이벤트 발생시 transFragmentA함수 호출. activityMain 의 container 값을 FragmentA로 바꿈
+    override fun transFragmentA() {
+        val transFragmentA = supportFragmentManager.beginTransaction()
+
+        transFragmentA.replace(
+        R.id.container, FragmentA()
+        )
+
+//        transFragmentA.apply {
+//        }
+        transFragmentA.commit()
+
     }
 }

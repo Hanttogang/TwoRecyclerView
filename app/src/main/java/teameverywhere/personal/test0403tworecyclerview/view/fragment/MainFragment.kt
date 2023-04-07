@@ -1,5 +1,6 @@
 package teameverywhere.personal.test0403tworecyclerview.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import teameverywhere.personal.test0403tworecyclerview.MainActivity
 import teameverywhere.personal.test0403tworecyclerview.R
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
@@ -25,9 +30,23 @@ class MainFragment : Fragment() {
     private lateinit var viewAdapter01: ViewAdapter01
     private lateinit var viewAdapter02: ViewAdapter02
 
+    private var transFragmentInterface: TransFragmentInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    interface TransFragmentInterface {
+        fun transFragmentA()
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is TransFragmentInterface) {
+            transFragmentInterface = context
+        } else {
+            throw RuntimeException("$context must implement MyInterface")
+        }
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
@@ -50,10 +69,11 @@ class MainFragment : Fragment() {
 
         bindViews()
 
-//        val intent = Intent(this.context, ProfileDetailActivity::class.java)
+//        val intent = Intent(this.context, FragmentA::class.java)
 
+
+        //Adapter01에 대한 클릭
         viewAdapter01.setOnItemClickListener(object: ViewAdapter01.OnItemClickListener{
-
             override fun onClick(v: View, position: Int) {
 //                intent.putExtra("Click01_1data", list01[position].getData01_1())
 //                intent.putExtra("Click01_2data", list01[position].getData01_2())
@@ -61,6 +81,24 @@ class MainFragment : Fragment() {
                 Log.d("ViewAdapter01", "===== ===== ===== ===== click ===== ===== ===== =====")
                 Log.d("ViewAdapter01", "${list01[position].getData01_1()}" + "${list01[position].getData01_2()}" + "${list01[position].getData01_3()}")
 
+                fun sendResult() {
+
+                    val getDataA1 = "${list01[position].getData01_1()}"
+                    val getDataA2 = "${list01[position].getData01_2()}"
+                    val getDataA3 = "${list01[position].getData01_3()}"
+
+//                     setFragmentResult() 메소드를 호출하여 결과 데이터를 전달합니다.
+                    setFragmentResult("requestKey",
+//                      결과 데이터를 번들에 담습니다.
+                        bundleOf(
+                        "bundleKey1" to getDataA1,
+                        "bundleKey2" to getDataA2,
+                        "bundleKey3" to getDataA3))
+
+                }
+
+                sendResult()
+                transFragmentInterface?.transFragmentA()
             }
         })
 

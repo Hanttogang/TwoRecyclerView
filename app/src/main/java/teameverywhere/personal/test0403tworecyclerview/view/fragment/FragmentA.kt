@@ -1,27 +1,26 @@
 package teameverywhere.personal.test0403tworecyclerview.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import teameverywhere.personal.test0403tworecyclerview.R
+import androidx.fragment.app.setFragmentResultListener
+import teameverywhere.personal.test0403tworecyclerview.MainActivity
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentABinding
-import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
-import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
-import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
-import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter01
-import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter02
 
-class FragmentA : Fragment() {
+class FragmentA : Fragment(), MainActivity.onBackPressedListener {
     private var _binding: FragmentABinding? = null
     private val binding get() = _binding!!
 
+    override fun onBackPressed() {
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        //requireActivity().supportFragmentManager.popBackStack()
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,6 +35,20 @@ class FragmentA : Fragment() {
     }
 
     private fun bindViews() = with(binding){
+
+        // 결과 데이터를 수신하기 위해 setFragmentResultListener() 메소드를 호출합니다.
+        setFragmentResultListener("requestKey") { key, bundle ->
+            // We use a String here, but any type that can be put in a Bundle is supported
+            // 번들에서 데이터를 추출합니다.
+            val getDataA1 = bundle.getString("bundleKey1")
+            val getDataA2 = bundle.getString("bundleKey2")
+            val getDataA3 = bundle.getString("bundleKey3")
+
+            // 추출한 데이터를 사용하여 작업을 수행합니다.
+            tvData1.text = getDataA1.toString()
+            tvData2.text = getDataA2.toString()
+            tvData3.text = getDataA3.toString()
+        }
 
     }
 
