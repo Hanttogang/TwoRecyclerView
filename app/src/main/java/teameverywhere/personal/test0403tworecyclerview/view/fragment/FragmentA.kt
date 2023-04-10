@@ -5,21 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.fragment.app.setFragmentResultListener
 import teameverywhere.personal.test0403tworecyclerview.MainActivity
+import teameverywhere.personal.test0403tworecyclerview.R
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentABinding
 
 class FragmentA : Fragment(), MainActivity.onBackPressedListener {
     private var _binding: FragmentABinding? = null
     private val binding get() = _binding!!
 
-    override fun onBackPressed() {
-        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-        //requireActivity().supportFragmentManager.popBackStack()
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onBackPressed() = with(binding) {
+        // 상단바
+        toolbarFragmentA.setNavigationIcon(R.drawable.ic_action_back)
+
+        toolbarFragmentA.setNavigationOnClickListener {
+//            onBackPressed()
+//            requireActivity().supportFragmentManager.beginTransaction().remove(this@FragmentA).commit()
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
     }
 
@@ -34,6 +43,8 @@ class FragmentA : Fragment(), MainActivity.onBackPressedListener {
         bindViews()
     }
 
+
+    //TODO 번들 데이터 적용
     private fun bindViews() = with(binding){
 
         // 결과 데이터를 수신하기 위해 setFragmentResultListener() 메소드를 호출합니다.
@@ -49,7 +60,7 @@ class FragmentA : Fragment(), MainActivity.onBackPressedListener {
             tvData2.text = getDataA2.toString()
             tvData3.text = getDataA3.toString()
         }
-
+        onBackPressed()
     }
 
     override fun onDestroy() {

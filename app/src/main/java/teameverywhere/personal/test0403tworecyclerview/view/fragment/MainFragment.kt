@@ -1,7 +1,6 @@
 package teameverywhere.personal.test0403tworecyclerview.view.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,15 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import teameverywhere.personal.test0403tworecyclerview.MainActivity
-import teameverywhere.personal.test0403tworecyclerview.R
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
-import teameverywhere.personal.test0403tworecyclerview.view.activity.ProfileDetailActivity
 import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter01
 import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter02
 
@@ -71,7 +66,7 @@ class MainFragment : Fragment() {
 
 //        val intent = Intent(this.context, FragmentA::class.java)
 
-
+//TODO viewAdapter01에 대한클릭 이벤트 발생
         //Adapter01에 대한 클릭
         viewAdapter01.setOnItemClickListener(object: ViewAdapter01.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
@@ -81,12 +76,12 @@ class MainFragment : Fragment() {
                 Log.d("ViewAdapter01", "===== ===== ===== ===== click ===== ===== ===== =====")
                 Log.d("ViewAdapter01", "${list01[position].getData01_1()}" + "${list01[position].getData01_2()}" + "${list01[position].getData01_3()}")
 
-                fun sendResult() {
 
+                //TODO 번들 데이터 전달
+                fun sendResult() {
                     val getDataA1 = "${list01[position].getData01_1()}"
                     val getDataA2 = "${list01[position].getData01_2()}"
                     val getDataA3 = "${list01[position].getData01_3()}"
-
 //                     setFragmentResult() 메소드를 호출하여 결과 데이터를 전달합니다.
                     setFragmentResult("requestKey",
 //                      결과 데이터를 번들에 담습니다.
@@ -94,7 +89,6 @@ class MainFragment : Fragment() {
                         "bundleKey1" to getDataA1,
                         "bundleKey2" to getDataA2,
                         "bundleKey3" to getDataA3))
-
                 }
 
                 sendResult()

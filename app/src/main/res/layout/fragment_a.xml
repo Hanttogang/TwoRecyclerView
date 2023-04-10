@@ -9,24 +9,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/AppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.Test0403TwoRecyclerView"
-            app:elevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/purple_200">
+
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarFragmentA"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary" />
+                android:background="#FFFFFF"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
             android:id="@+id/tvA"
@@ -35,9 +27,9 @@
             android:text="프래그먼트 A 입니다."
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/AppBar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbarFragmentA" />
 
         <TextView
             android:id="@+id/tvData1"
@@ -46,9 +38,9 @@
             android:layout_marginTop="20dp"
             android:text="데이터 1 입니다."
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tvA"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvA" />
 
         <TextView
             android:id="@+id/tvData2"
@@ -56,9 +48,9 @@
             android:layout_height="wrap_content"
             android:text="데이터 2 입니다."
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tvData1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvData1" />
 
         <TextView
             android:id="@+id/tvData3"
@@ -66,9 +58,9 @@
             android:layout_height="wrap_content"
             android:text="데이터 3 입니다."
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tvData2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvData2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

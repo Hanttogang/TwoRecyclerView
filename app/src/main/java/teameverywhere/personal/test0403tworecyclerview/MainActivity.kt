@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import teameverywhere.personal.test0403tworecyclerview.databinding.ActivityMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
@@ -22,17 +24,6 @@ class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
         fun onBackPressed()
     }
 
-    override fun onBackPressed(){
-        //해당 엑티비티에서 띄운 프래그먼트에서 뒤로가기를 누르게 되면 프래그먼트에서 구현한 onBackPressed 함수가 실행되게 된다.
-        val fragmentList = supportFragmentManager.fragments
-        for (fragment in fragmentList) {
-            if (fragment is onBackPressedListener) {
-                (fragment as onBackPressedListener).onBackPressed()
-                return
-            }
-        }
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -44,6 +35,18 @@ class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
 
         init()
         //bindViews()
+
+    }
+    override fun onBackPressed(){
+        //아래와 같은 코드를 추가하도록 한다
+        //해당 엑티비티에서 띄운 프래그먼트에서 뒤로가기를 누르게 되면 프래그먼트에서 구현한 onBackPressed 함수가 실행되게 된다.
+        val fragmentList = supportFragmentManager.fragments
+        for (fragment in fragmentList) {
+            if (fragment is onBackPressedListener) {
+                (fragment as onBackPressedListener).onBackPressed()
+                return
+            }
+        }
     }
 
     private fun init(){
@@ -51,8 +54,8 @@ class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
             add(R.id.container, MainFragment())
             commit()
             dataList()
-
         }
+
     }
 
     private fun bindViews() = with(binding){
@@ -102,15 +105,22 @@ class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
 
     //클릭 이벤트 발생시 transFragmentA함수 호출. activityMain 의 container 값을 FragmentA로 바꿈
     override fun transFragmentA() {
-        val transFragmentA = supportFragmentManager.beginTransaction()
+        //TODO 백스택 쌓기위해 add로 해봄
+//        val transFragmentA = supportFragmentManager.beginTransaction()
+//
+//        transFragmentA.add(
+//        R.id.container, FragmentA()
+//        )
+//
+////        transFragmentA.apply {
+////        }
+//        transFragmentA.commit()
+        supportFragmentManager.commit {
+            replace<FragmentA>(R.id.container)
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
 
-        transFragmentA.replace(
-        R.id.container, FragmentA()
-        )
-
-//        transFragmentA.apply {
-//        }
-        transFragmentA.commit()
 
     }
 }
