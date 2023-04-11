@@ -11,8 +11,11 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import teameverywhere.personal.test0403tworecyclerview.R
+import teameverywhere.personal.test0403tworecyclerview.controller.ItemTouchHelperCallback
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
@@ -29,6 +32,7 @@ class MainFragment : Fragment() {
     private var transFragmentInterface: TransFragmentInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     interface TransFragmentInterface {
@@ -108,6 +112,20 @@ class MainFragment : Fragment() {
         rvRecyclerView02.layoutManager =
             GridLayoutManager(context, 3)
         rvRecyclerView02.adapter = viewAdapter02
+
+
+
+//        val recyclerView = findViewById<RecyclerView>(R.id.rvRecyclerView02)
+        val callback = ItemTouchHelperCallback(viewAdapter02)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(rvRecyclerView02)
+
+        viewAdapter02.startDrag(object: ViewAdapter02.OnStartDragListener{
+            override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                touchHelper.startDrag(viewHolder)
+            }
+        })
+
     }
 
     override fun onDestroy() {

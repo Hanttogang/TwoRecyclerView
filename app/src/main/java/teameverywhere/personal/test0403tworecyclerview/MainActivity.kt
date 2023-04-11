@@ -12,7 +12,6 @@ import androidx.fragment.app.replace
 import teameverywhere.personal.test0403tworecyclerview.databinding.ActivityMainBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
-import teameverywhere.personal.test0403tworecyclerview.view.adapter.ViewAdapter01
 import teameverywhere.personal.test0403tworecyclerview.view.fragment.FragmentA
 import teameverywhere.personal.test0403tworecyclerview.view.fragment.MainFragment
 

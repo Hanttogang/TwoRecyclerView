@@ -1,31 +1,57 @@
 package teameverywhere.personal.test0403tworecyclerview.view.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import teameverywhere.personal.test0403tworecyclerview.R
+import teameverywhere.personal.test0403tworecyclerview.controller.ItemTouchHelperCallback
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentABinding
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
 import teameverywhere.personal.test0403tworecyclerview.databinding.ItemData02ListBinding
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass02
+import java.util.*
 
 class ViewAdapter02 (val list02: MutableList<DataClass02>):
-    RecyclerView.Adapter<ViewAdapter02.ListItemViewHolder02> () {
+    RecyclerView.Adapter<ViewAdapter02.ListItemViewHolder02>(),
+        ItemTouchHelperCallback.OnItemMoveListener {
 
+    private lateinit var dragListener: OnStartDragListener
 
+    interface OnStartDragListener {
+        fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
+    }
+    fun startDrag(listener: OnStartDragListener){
+        this.dragListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewAdapter02.ListItemViewHolder02{
         val view02 = LayoutInflater.from(parent.context).inflate(R.layout.item_data02_list, parent, false)
         return ListItemViewHolder02(view02)
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewAdapter02.ListItemViewHolder02, position: Int) {
         Log.d("ViewAdapter02", "===== ===== ===== ===== onBindViewHolder02 ===== ===== ===== =====")
         holder.bindData02(list02[position])
+
+
+        list02[position].let {
+            with(holder) {
+                animalImg.setOnTouchListener { view, event ->
+                    if(event.action == MotionEvent.ACTION_DOWN){
+                        dragListener.onStartDrag(this)
+                    }
+                    return@setOnTouchListener false
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -48,9 +74,17 @@ class ViewAdapter02 (val list02: MutableList<DataClass02>):
             data022Text.text = data02.data02_2
             animalImg.setImageResource(data02.data02_3)
 
-
-//binding?.ivMain?.setImageResource(R.drawable.mist)
         }
+    }
+
+    override fun onItemMoved(fromPosition: Int, toPosition: Int) {
+        Collections.swap(list02, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemSwiped(position: Int) {
+        list02.removeAt(position)
+        notifyItemRemoved(position)
     }
 
 }
