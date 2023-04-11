@@ -73,21 +73,15 @@ class MainActivity : AppCompatActivity(), MainFragment.TransFragmentInterface {
 
 
         var dataList02: ArrayList<DataClass02> = arrayListOf(
-            DataClass02("첫 번째 데이터1", "두 번째 데이터1", "세 번째 데이터1"),
-            DataClass02("첫 번째 데이터2", "두 번째 데이터2", "세 번째 데이터2"),
-            DataClass02("첫 번째 데이터3", "두 번째 데이터3", "세 번째 데이터3"),
-            DataClass02("첫 번째 데이터4", "두 번째 데이터4", "세 번째 데이터4"),
-            DataClass02("첫 번째 데이터5", "두 번째 데이터5", "세 번째 데이터5"),
-            DataClass02("첫 번째 데이터6", "두 번째 데이터6", "세 번째 데이터6"),
-            DataClass02("첫 번째 데이터7", "두 번째 데이터7", "세 번째 데이터7"),
-            DataClass02("첫 번째 데이터8", "두 번째 데이터8", "세 번째 데이터8"),
-            DataClass02("첫 번째 데이터9", "두 번째 데이터9", "세 번째 데이터9"),
-            DataClass02("첫 번째 데이터10", "두 번째 데이터10", "세 번째 데이터10"),
-            DataClass02("첫 번째 데이터11", "두 번째 데이터11", "세 번째 데이터11"),
-            DataClass02("첫 번째 데이터12", "두 번째 데이터12", "세 번째 데이터12"),
-            DataClass02("첫 번째 데이터13", "두 번째 데이터13", "세 번째 데이터13"),
-            DataClass02("첫 번째 데이터14", "두 번째 데이터14", "세 번째 데이터14"),
-            DataClass02("첫 번째 데이터15", "두 번째 데이터15", "세 번째 데이터15")
+            DataClass02("첫 번째 데이터1", "두 번째 데이터1", R.drawable.bird),
+            DataClass02("첫 번째 데이터2", "두 번째 데이터2", R.drawable.tiger),
+            DataClass02("첫 번째 데이터3", "두 번째 데이터3", R.drawable.bird),
+            DataClass02("첫 번째 데이터4", "두 번째 데이터4", R.drawable.panda),
+            DataClass02("첫 번째 데이터5", "두 번째 데이터5", R.drawable.bird),
+            DataClass02("첫 번째 데이터6", "두 번째 데이터6", R.drawable.bird),
+            DataClass02("첫 번째 데이터7", "두 번째 데이터7", R.drawable.bird),
+            DataClass02("첫 번째 데이터8", "두 번째 데이터8", R.drawable.tiger),
+            DataClass02("첫 번째 데이터9", "두 번째 데이터9", R.drawable.panda)
         )
 
         val mainFragment = supportFragmentManager.beginTransaction()

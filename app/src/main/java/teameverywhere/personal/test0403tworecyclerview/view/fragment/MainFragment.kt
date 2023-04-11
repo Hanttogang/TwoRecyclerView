@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import teameverywhere.personal.test0403tworecyclerview.databinding.FragmentMainBinding
@@ -105,7 +106,7 @@ class MainFragment : Fragment() {
         rvRecyclerView01.adapter = viewAdapter01
 
         rvRecyclerView02.layoutManager =
-            LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            GridLayoutManager(context, 3)
         rvRecyclerView02.adapter = viewAdapter02
     }
 

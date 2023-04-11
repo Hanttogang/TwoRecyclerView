@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import teameverywhere.personal.test0403tworecyclerview.R
 import teameverywhere.personal.test0403tworecyclerview.model.DataClass01
 
-
-//todo mechacat.tistory.com/7 참조해서 하기
 class ViewAdapter01 (val list01: MutableList<DataClass01>):
     RecyclerView.Adapter<ViewAdapter01.Holder01> (){
 
