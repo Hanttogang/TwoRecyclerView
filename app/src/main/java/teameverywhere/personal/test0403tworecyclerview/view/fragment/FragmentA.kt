@@ -55,10 +55,21 @@ class FragmentA : Fragment(), MainActivity.onBackPressedListener {
             val getDataA2 = bundle.getString("bundleKey2")
             val getDataA3 = bundle.getString("bundleKey3")
 
+
             // 추출한 데이터를 사용하여 작업을 수행합니다.
             tvData1.text = getDataA1.toString()
             tvData2.text = getDataA2.toString()
             tvData3.text = getDataA3.toString()
+
+
+            val data021 = bundle.getString("getData021")
+            val data022 = bundle.getString("getData022")
+            val data023 = bundle.getString("getData023")
+
+            tvData1.text = data021.toString()
+            tvData2.text = data022.toString()
+            tvData3.text = data023.toString()
+
         }
         onBackPressed()
     }

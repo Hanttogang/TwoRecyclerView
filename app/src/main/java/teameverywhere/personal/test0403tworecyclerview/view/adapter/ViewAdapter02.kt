@@ -41,7 +41,7 @@ class ViewAdapter02 (val list02: MutableList<DataClass02>):
         Log.d("ViewAdapter02", "===== ===== ===== ===== onBindViewHolder02 ===== ===== ===== =====")
         holder.bindData02(list02[position])
 
-
+        //드래그 앤 드롭
         list02[position].let {
             with(holder) {
                 animalImg.setOnTouchListener { view, event ->
@@ -52,7 +52,21 @@ class ViewAdapter02 (val list02: MutableList<DataClass02>):
                 }
             }
         }
+
+        //아이템 클릭
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+        itemClickListener = onItemClickListener
+    }
+    private lateinit var itemClickListener: OnItemClickListener
 
     override fun getItemCount(): Int {
         return list02.size

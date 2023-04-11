@@ -27,17 +27,17 @@ class ViewAdapter01 (val list01: MutableList<DataClass01>):
         holder.bindData01(list01[position])
 
         holder.itemView.setOnClickListener {
-            itemClickListener.onClick(it, position)
+            itemClickListener.onClick01(it, position)
         }
     }
 
-    interface OnItemClickListener {
-        fun onClick(v: View, position: Int)
+    interface OnItemClickListener01 {
+        fun onClick01(v: View, position: Int)
     }
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener01){
         itemClickListener = onItemClickListener
     }
-    private lateinit var itemClickListener: OnItemClickListener
+    private lateinit var itemClickListener: OnItemClickListener01
 
     @Suppress("DEPRECATION")
     inner class Holder01(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -46,7 +46,7 @@ class ViewAdapter01 (val list01: MutableList<DataClass01>):
             itemView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION && itemClickListener != null) {
-                    itemClickListener.onClick(itemView, pos)
+                    itemClickListener.onClick01(itemView, pos)
                 }
             }
         }

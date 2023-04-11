@@ -73,8 +73,8 @@ class MainFragment : Fragment() {
 
 //TODO viewAdapter01에 대한클릭 이벤트 발생
         //Adapter01에 대한 클릭
-        viewAdapter01.setOnItemClickListener(object: ViewAdapter01.OnItemClickListener{
-            override fun onClick(v: View, position: Int) {
+        viewAdapter01.setOnItemClickListener(object: ViewAdapter01.OnItemClickListener01{
+            override fun onClick01(v: View, position: Int) {
 //                intent.putExtra("Click01_1data", list01[position].getData01_1())
 //                intent.putExtra("Click01_2data", list01[position].getData01_2())
 //                intent.putExtra("Click01_3data", list01[position].getData01_3())
@@ -94,6 +94,33 @@ class MainFragment : Fragment() {
                         "bundleKey1" to getDataA1,
                         "bundleKey2" to getDataA2,
                         "bundleKey3" to getDataA3))
+                }
+
+                sendResult()
+                transFragmentInterface?.transFragmentA()
+            }
+        })
+
+        //TODO viewAdapter02에 대한클릭 이벤트 발생
+        //Adapter02에 대한 클릭
+        viewAdapter02.setOnItemClickListener(object: ViewAdapter02.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                Log.d("ViewAdapter02", "===== ===== ===== ===== click ===== ===== ===== =====")
+                Log.d("ViewAdapter02", list02[position].data02_1 + list02[position].data02_2 + "${list02[position].data02_3}")
+
+
+                //TODO 번들 데이터 전달
+                fun sendResult() {
+                    val data021 = list02[position].data02_1
+                    val data022 = list02[position].data02_2
+                    val data023 = "${list02[position].data02_3}"
+//                     setFragmentResult() 메소드를 호출하여 결과 데이터를 전달합니다.
+                    setFragmentResult("requestKey",
+//                      결과 데이터를 번들에 담습니다.
+                        bundleOf(
+                            "getData021" to data021,
+                            "getData022" to data022,
+                            "getData023" to data023))
                 }
 
                 sendResult()
